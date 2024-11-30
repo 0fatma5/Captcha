@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Example</title>
+    <link rel="stylesheet" href="captcha.css">
+</head>
+<body>
+<div class="captcha-container">
+    <!-- Instructions for the CAPTCHA -->
+    <div class="instructions">
+    <h2 >  select all images with traffic light</h2>
+    </div>
+
+    <!-- Grid of images for selection -->
+    <div class="grid" id="imageGrid"></div>
+    
+    <!-- Human Verification Checkbox -->
+    <div class="human-verification">
+        <input type="checkbox" id="humanVerification">
+        <label for="humanVerification">I am not a robot</label>
+    </div>
+
+    <!-- Verify Button -->
+    <button class="verify-button" onclick="verifySelection()">Verify</button>
+</div>
+
+<script>
+// List of all images shown in the captcha
+const images = [
+    "./captcha/img1.jpeg",
+    "./captcha/img2.jpeg",
+    "./captcha/img3.jpeg",
+    "./captcha/img4.jpeg",
+    "./captcha/img5.jpeg",
+    "./captcha/img6.jpeg",
+    "./captcha/rimg1.jpeg",
+    "./captcha/rimg2.jpeg",
+    "./captcha/rimg3.jpeg",
+    "./captcha/rimg4.jpeg",
+    "./captcha/rimg5.jpeg",
+    "./captcha/rimg6.jpeg",
+];
+
+// List of correct images that the user should select(traffic light)
+const correctImages = [
+    "./captcha/rimg1.jpeg",
+    "./captcha/rimg2.jpeg",
+    "./captcha/rimg3.jpeg",
+    "./captcha/rimg4.jpeg",
+    "./captcha/rimg5.jpeg",
+    "./captcha/rimg6.jpeg",
+];
+
+// Normalize the path by extracting the filename from the URL to compare the filenames not the full path
+function normalizePath(path) {
+    return path.split('/').pop().split('\\').pop(); // Extracts filename from path
+}
+
+function loadImages() {
+    // This is the container where all the images will be displayed in a grid.
+    const grid = document.getElementById("imageGrid");
+    
+    // Shuffle the images randomly to display them in a different order each time the page loads
+    images.sort(() => Math.random() - 0.5); // This randomly shuffles the images array
+    
+    // Loop through each image URL in the shuffled 'images' array
+    images.forEach((imgUrl) => {
+        // Create a new <img> element for each image URL
+        const img = document.createElement("img");
+        
+        // Set the 'src' attribute of the <img> element to the current image URL
+        img.src = imgUrl;
+        
+        // Set an 'alt' attribute for accessibility purposes, describing the image
+        img.alt = "captcha image";
+        
+        // Add an 'onclick' event listener to each image
+        // When the image is clicked, it toggles the "selected" class (selects or deselects the image)
+        img.onclick = () => img.classList.toggle("selected");
+        
+        // Append the <img> element to the grid container
+        grid.appendChild(img);
+    });
+}
+
+// Verify the user's selection
+function verifySelection() {
+    const isHuman = document.getElementById("humanVerification").checked;
+    if (!isHuman) {
+        alert("Please confirm that you are not a robot.");
+        return;
+    }
+
+    // Get the selected images by normalizing their paths
+    const selected = Array.from(document.querySelectorAll(".grid img.selected"))
+        .map((img) => normalizePath(img.src));
+
+    // Normalize filenames from correctImages
+    const correctFilenames = correctImages.map((img) => normalizePath(img));
+
+    // Check if the selected images match the correct ones, and no extra images are selected
+    const allCorrect = selected.every((filename) => correctFilenames.includes(filename));
+    const noExtras = selected.length === correctFilenames.length;
+
+    // If the number of selected images is less than 6
+    if (selected.length < correctFilenames.length) {
+        alert("You must select all 6 traffic light images.");
+        return;
+    }
+
+    // Provide feedback based on the user's selection
+    if (allCorrect && noExtras) {
+        alert("Verification successful! You selected all the correct images.");
+        
+        // Remove the 'selected' class after successful verification
+        document.querySelectorAll(".grid img.selected").forEach(img => {
+            img.classList.remove("selected");
+        });
+
+        // Optionally, you can disable the verify button after successful verification
+        document.querySelector('.verify-button').disabled = true;
+    } else {
+        alert("Verification failed. Please try again.");
+    }
+}
+
+// Load images when the page is loaded
+window.onload = loadImages;
+</script>
+</body>
+</html>
