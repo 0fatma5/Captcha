@@ -1,0 +1,12 @@
+{
+  "name": "spot-the-signal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser-based image selection challenge for learning JavaScript",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check app.js && node --check challenge-utils.js"
+  },
+  "engines": { "node": ">=18" }
+}
