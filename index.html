@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive JavaScript image-selection challenge with an accessible text alternative. Educational UI demo only.">
+  <meta name="theme-color" content="#0e2029">
+  <title>Spot the Signal — Image Selection Challenge</title>
+  <link rel="stylesheet" href="./app.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Spot the Signal homepage"><span class="brand-mark" aria-hidden="true">✳</span><span>spot<span class="brand-accent">the</span>signal<span class="brand-dot">.</span></span></a>
+      <a class="source" href="https://github.com/0fatma5/Captcha" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> FRONTEND INTERACTION LAB</div>
+        <h1 id="hero-title">Look closer.<br><span>Find the signal.</span></h1>
+        <p>Explore a photo-selection challenge built in vanilla JavaScript. Practice your attention to detail, then see how you did.</p>
+      </section>
+      <div class="studio">
+        <section class="challenge-panel" aria-label="Interactive challenge">
+          <div class="panel-header">
+            <div class="step"><span class="step-index">01</span> THE CHALLENGE</div>
+            <span id="mode-label" class="mode-chip">Image mode</span>
+          </div>
+          <div id="image-challenge">
+            <h2>Select all images with <span>traffic lights</span></h2>
+            <p class="instruction">Click or use Tab + Enter/Space to select every matching photo.</p>
+            <div class="image-grid" id="image-grid" aria-label="Image choices"></div>
+            <div class="grid-footer"><span id="selection-counter">0 selected</span><button id="clear" class="text-action" type="button">Clear selections</button></div>
+          </div>
+          <form id="text-challenge" class="hidden" autocomplete="off" aria-labelledby="text-title">
+            <h2 id="text-title">Prefer a text challenge?</h2>
+            <p class="instruction">No visual recognition needed. Answer the short question below.</p>
+            <label id="math-question" class="math-question" for="math-answer">What is 4 + 5?</label>
+            <input id="math-answer" name="answer" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="Enter the number" maxlength="3">
+          </form>
+          <div class="actions">
+            <button id="verify" class="primary-button" type="button">Check my answer <span aria-hidden="true">→</span></button>
+            <button id="new-challenge" class="outline-button" type="button">Try again</button>
+          </div>
+          <p class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+          <div class="mode-footer"><button id="switch-mode" class="switch-button" type="button">Use a text-based alternative <span aria-hidden="true">↗</span></button></div>
+        </section>
+        <aside class="info-panel" aria-labelledby="about-title">
+          <span class="aside-label">ABOUT THIS PROJECT</span>
+          <div class="abstract-icon" aria-hidden="true"><span class="abstract-circle"></span><span class="abstract-square"></span><span class="abstract-line"></span></div>
+          <h2 id="about-title">Small challenge.<br>Real JavaScript.</h2>
+          <p>Built to practice DOM events, state management, randomized arrays and input validation.</p>
+          <ul class="feature-list">
+            <li><span aria-hidden="true">✓</span> Random image order</li>
+            <li><span aria-hidden="true">✓</span> Keyboard-friendly selections</li>
+            <li><span aria-hidden="true">✓</span> Text alternative included</li>
+            <li><span aria-hidden="true">✓</span> No sign-up or data collection</li>
+          </ul>
+          <div class="note"><strong>Learning demo only</strong><p>The answers live in browser JavaScript. This does not verify human identity or protect a website against bots.</p></div>
+        </aside>
+      </div>
+    </main>
+    <footer><span>Spot the Signal · JavaScript mini project</span><span>Made for learning, not security enforcement.</span></footer>
+  </div>
+</body>
+</html>
